@@ -1,10 +1,9 @@
 from .models import Category
 from .serializers import CategorySerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.decorators import permission_classes
 
 
 @api_view(['GET'])
@@ -13,17 +12,6 @@ def category_list(request):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-# @api_view(['GET'])
-# def category_detail(request, slug):
-#     try:
-#         category = Category.objects.get(slug=slug)
-#     except Category.DoesNotExist:
-#         return Response({'detail': 'Category not found.'}, status=status.HTTP_404_NOT_FOUND)
-
-#     serializer = CategorySerializer(category)
-#     return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAdminUser])
