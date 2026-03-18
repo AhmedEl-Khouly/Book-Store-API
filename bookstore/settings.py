@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'django_filters',
     'rest_framework',
     'rest_framework_simplejwt',
     'users.apps.UsersConfig',
@@ -57,7 +58,12 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         # "rest_framework.authentication.TokenAuthentication",
-    )
+    ),
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+    ),
+    # "DEFAULT_PAGINATION_CLASS": "books.pagination.BookPagination",
 }
 
 SIMPLE_JWT = {
