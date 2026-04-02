@@ -29,6 +29,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
+class LoginSerializer(serializers.Serializer):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
+
+
 class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

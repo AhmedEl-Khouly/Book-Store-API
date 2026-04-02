@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 from . import views
 
 urlpatterns = [
@@ -9,5 +9,5 @@ urlpatterns = [
     # Book POST URL for creating a new book (admins only)
     path("books/create/", views.book_create, name='books-create'),
     # Book PUT, PATCH, DELETE URL for updating, deleting a book (admins only)
-    path("books/update/delete/<int:id>/", views.book_update_delete, name='books-update'),
+    path("books/<int:id>/updateordelete/", views.book_update_delete, name='books-update'),
 ]

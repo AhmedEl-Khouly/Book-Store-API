@@ -7,7 +7,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
-    def total_price(self):
+    def total_cart_price(self):
         return sum(item.book.price * item.quantity for item in self.items.all())
     
     def __str__(self):
