@@ -11,9 +11,16 @@ from .permissions import IsOwnerOrReadOnly
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
-    queryset = Review.objects.all()
+    # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
+    def get_queryset(self):
+        book_id = self.kwargs.get('book_pk')
+        if book_id:
+            return Review.objects.filter(book_id=book_id)
+        return Review.objects.all()
+    
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        book_id = self.kwargs.get('book_pk')
+        serializer.save(user=self.request.user, book_id=book_id)
